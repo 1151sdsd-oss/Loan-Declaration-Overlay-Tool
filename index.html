@@ -6,118 +6,80 @@
 <title>貸款聲明書套印工具 - 永豐銀行</title>
 <style>
   :root{
-    --red:#c0392b;
-    --bg:#f4f5f7;
-    --panel:#ffffff;
-    --border:#dcdfe4;
-    --text:#2b2f36;
-    --accent:#2563eb;
-    --muted:#6b7280;
+    --accent:#8a1f2b;
+    --accent2:#c0392b;
+    --border:#ccc;
   }
   *{box-sizing:border-box;}
   body{
-    margin:0;
     font-family:"Microsoft JhengHei","PingFang TC","Noto Sans TC",sans-serif;
-    background:var(--bg);
-    color:var(--text);
+    margin:0; background:#eef0f2; color:#222;
   }
-  header{
-    background:linear-gradient(135deg,#c0392b,#992d22);
-    color:#fff;
-    padding:14px 20px;
-  }
-  header h1{margin:0;font-size:18px;font-weight:600;}
-  header p{margin:4px 0 0;font-size:12px;opacity:.85;}
-  .layout{
+  #app{
     display:flex;
-    gap:16px;
-    padding:16px;
-    align-items:flex-start;
-    flex-wrap:wrap;
+    min-height:100vh;
   }
-  .panel{
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:10px;
-    padding:14px 16px;
-    box-shadow:0 1px 3px rgba(0,0,0,.04);
-  }
-  .controls{
-    width:340px;
-    flex:0 0 340px;
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-  }
-  .section-title{
-    font-size:13px;
-    font-weight:700;
-    color:var(--red);
-    margin:0 0 8px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-  }
-  label{font-size:12px;color:var(--muted);display:block;margin-bottom:3px;}
-  input[type=text]{
-    width:100%;
-    padding:7px 9px;
-    border:1px solid var(--border);
-    border-radius:6px;
-    font-size:14px;
-    font-family:inherit;
+  .sidebar{
+    width:300px; min-width:280px;
     background:#fff;
+    border-right:1px solid var(--border);
+    padding:16px;
+    overflow-y:auto;
+    height:100vh;
+    position:sticky; top:0;
   }
-  .row{margin-bottom:12px;}
-  .check-group{display:flex;flex-direction:column;gap:6px;}
+  .sidebar h1{
+    font-size:16px; margin:0 0 4px; color:var(--accent);
+  }
+  .sidebar .sub{
+    font-size:11.5px; color:#888; margin-bottom:14px; line-height:1.5;
+  }
+  fieldset{
+    border:1px solid var(--border); border-radius:8px;
+    margin-bottom:14px; padding:10px 12px 12px;
+  }
+  legend{
+    font-size:13px; font-weight:bold; color:var(--accent); padding:0 6px;
+  }
+  label{font-size:12.5px; display:block; margin:6px 0 2px; color:#555;}
+  input[type=text]{
+    width:100%; font-size:13px; padding:6px 7px;
+    border:1px solid var(--border); border-radius:5px;
+    font-family:inherit; background:#fff;
+  }
+  .row{margin-bottom:10px;}
+  .check-group{display:flex;flex-direction:column;gap:6px;margin-top:4px;}
   .check-item{
     display:flex;align-items:center;gap:6px;
-    font-size:13px;color:var(--text);
+    font-size:12.5px;color:#222;
     cursor:pointer;
   }
   .check-item input{width:auto;margin:0;}
-  .btn{
-    display:inline-block;
-    padding:7px 12px;
-    border-radius:6px;
-    border:1px solid var(--border);
-    background:#fff;
-    cursor:pointer;
-    font-size:12.5px;
-    color:var(--text);
+  button, .btn{
+    cursor:pointer; border:none; border-radius:6px;
+    padding:8px 10px; font-size:13px; font-weight:bold;
+    color:#fff; background:var(--accent); width:100%;
+    margin-top:8px; display:inline-block; text-align:center;
   }
-  .btn:hover{background:#f0f1f3;}
-  .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);}
-  .btn.primary:hover{background:#1d4ed8;}
-  .btn.danger{color:#c0392b;border-color:#f1c0b8;}
-  .btn.small{padding:4px 8px;font-size:11.5px;}
-  .btn-row{display:flex;gap:8px;flex-wrap:wrap;}
-  .canvas-wrap{
-    flex:1 1 380px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:10px;
+  button.secondary, .btn.secondary{ background:#607d8b; }
+  button.warn, .btn.warn{ background:#b45309; }
+  button.danger, .btn.danger{ background:#a33; }
+  button.ghost, .btn.ghost{ background:#eee; color:#333; border:1px solid var(--border); }
+  button:hover, .btn:hover{ filter:brightness(1.08); }
+  .btnrow, .btn-row{display:flex; gap:8px; flex-wrap:wrap;}
+  .btnrow button, .btn-row .btn{margin-top:8px; flex:1 1 auto;}
+  .btn.small{padding:6px 8px; font-size:11.5px;}
+  .hint{font-size:11.5px; color:#777; margin-top:4px; line-height:1.6;}
+  select{
+    width:100%; font-size:13px; padding:6px 7px;
+    border:1px solid var(--border); border-radius:5px;
+    font-family:inherit; background:#fff;
   }
-  #slipCanvas{
-    background:#fff;
-    border:1px solid var(--border);
-    box-shadow:0 2px 10px rgba(0,0,0,.08);
-    max-width:100%;
-    height:auto;
-    width:380px;
-    cursor:default;
+  .badge{
+    display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:10px;
+    background:#f3e1e3;color:var(--accent);
   }
-  #slipCanvas.calib{cursor:crosshair;}
-  .hint{
-    font-size:11.5px;
-    color:var(--muted);
-    line-height:1.6;
-    background:#fff7ed;
-    border:1px solid #fde3c0;
-    padding:8px 10px;
-    border-radius:8px;
-  }
+  .divider{height:1px;background:var(--border);margin:10px 0;}
   .calib-field{
     border:1px solid var(--border);
     border-radius:8px;
@@ -125,7 +87,7 @@
     margin-bottom:8px;
     background:#fafbfc;
   }
-  .calib-field .ttl{font-size:12.5px;font-weight:700;margin-bottom:6px;color:var(--text);}
+  .calib-field .ttl{font-size:12.5px;font-weight:700;margin-bottom:6px;color:#222;}
   .calib-field .grid3{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -133,43 +95,58 @@
   }
   .calib-field .grid3 label{font-size:10.5px;margin-bottom:2px;}
   .calib-field input{padding:4px 5px;font-size:12px;}
-  .badge{
-    display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:10px;
-    background:#eef2ff;color:#3730a3;
-  }
-  .divider{height:1px;background:var(--border);margin:10px 0;}
-  .footer-note{font-size:11px;color:var(--muted);text-align:center;max-width:380px;}
-  details.panel > summary{list-style:none;cursor:pointer;}
-  details.panel > summary::-webkit-details-marker{display:none;}
-  details.panel > summary::after{
+  details > summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;}
+  details > summary::-webkit-details-marker{display:none;}
+  details > summary::after{
     content:'▾';
     font-size:11px;
-    color:var(--muted);
+    color:#888;
     margin-left:8px;
   }
-  details.panel[open] > summary::after{content:'▴';}
-  details.panel > summary{margin-bottom:0;}
-  details.panel[open] > summary{margin-bottom:8px;}
+  details[open] > summary::after{content:'▴';}
+  details[open] > summary{margin-bottom:8px;}
+
+  .previewWrap{
+    flex:1; padding:24px; display:flex; justify-content:center; align-items:flex-start;
+    overflow:auto;
+  }
+  #formStage{
+    position:relative;
+    background:#fff;
+    box-shadow:0 2px 14px rgba(0,0,0,.18);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    padding:16px;
+  }
+  #slipCanvas{
+    background:#fff;
+    max-width:100%;
+    width:720px;
+    height:auto;
+    cursor:default;
+  }
+  #slipCanvas.calib{cursor:crosshair;}
+  .footer-note{font-size:11px;color:#888;text-align:center;max-width:720px;}
 </style>
 </head>
 <body>
-<header>
-  <h1>貸款聲明書套印工具｜永豐銀行 Bank SinoPac</h1>
-  <p>輸入戶名、身分證字號並勾選資金用途／確認方式 → 匯出合併圖片。文字與勾選位置為初版估算值，可用「校正模式」微調對齊。</p>
-</header>
+<div id="app">
 
-<div class="layout">
-  <div class="controls">
+  <div class="sidebar controls">
+    <h1>貸款聲明書套印工具</h1>
+    <div class="sub">永豐銀行內部工具・單檔 HTML 版</div>
 
-    <div class="panel">
-      <div class="section-title">① 填單內容</div>
+    <fieldset class="panel">
+      <legend>① 填單內容</legend>
       <div class="row">
         <label>從 Excel 匯入（姓名／身分證字號）</label>
-        <div class="btn-row">
-          <button class="btn small" id="importXlsxBtn">選擇 Excel 檔案</button>
-          <input type="file" id="importXlsxFile" accept=".xlsx,.xls" style="display:none;">
-        </div>
-        <select id="xlsxRecordSelect" style="display:none;margin-top:6px;width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:13px;"></select>
+        <label class="fileBtn btn small" for="importXlsxFile" style="display:block;background:#eee;color:#555;border:1px dashed #aaa;font-weight:normal;">
+          選擇 Excel 檔案
+        </label>
+        <input type="file" id="importXlsxFile" accept=".xlsx,.xls" style="display:none;">
+        <select id="xlsxRecordSelect" style="display:none;margin-top:6px;"></select>
       </div>
       <div class="row">
         <label>聲明人姓名</label>
@@ -194,28 +171,30 @@
           <label class="check-item"><input type="radio" name="confirmMethod" class="confirmMethodRadio" value="inperson"> 當面確認</label>
         </div>
       </div>
-    </div>
+    </fieldset>
 
-    <div class="panel">
-      <div class="section-title">② 匯出</div>
-      <div class="btn-row">
-        <button class="btn primary" id="exportBtn">下載合併圖片 (PNG)</button>
-        <button class="btn" id="printBtn">開啟列印預覽</button>
+    <fieldset class="panel">
+      <legend>② 匯出</legend>
+      <div class="btnrow">
+        <button id="exportBtn">下載合併圖片 (PNG)</button>
+        <button class="secondary" id="printBtn">開啟列印預覽</button>
       </div>
-    </div>
+    </fieldset>
 
-    <details class="panel">
-      <summary class="section-title">
-        ③ 校正模式
+    <details class="panel" style="border:1px solid var(--border);border-radius:8px;padding:10px 12px 12px;">
+      <summary>
+        <span style="font-size:13px;font-weight:bold;color:var(--accent);">③ 校正模式</span>
         <span class="badge" id="calibBadge">關閉</span>
       </summary>
       <div class="hint">
         開啟校正模式後，可在畫布上拖曳各欄位（含勾選框）的錨點，或用下方數值/方向鍵微調對齊，完成後按「儲存校正」。
       </div>
-      <div class="btn-row" style="margin:8px 0;">
-        <button class="btn" id="toggleCalibBtn">開啟校正模式</button>
-        <button class="btn" id="saveCalibBtn">儲存校正</button>
-        <button class="btn danger" id="resetCalibBtn">還原預設值</button>
+      <div class="btnrow">
+        <button class="ghost" id="toggleCalibBtn">開啟校正模式</button>
+      </div>
+      <div class="btnrow">
+        <button class="secondary" id="saveCalibBtn">儲存校正</button>
+        <button class="danger" id="resetCalibBtn">還原預設值</button>
       </div>
       <div id="calibPanel" style="display:none;">
         <label>選取欄位（可用方向鍵微調，Shift+方向鍵=5px）</label>
@@ -223,20 +202,22 @@
         <div id="calibFields"></div>
         <div class="divider"></div>
         <label>校正設定備份</label>
-        <div class="btn-row">
-          <button class="btn small" id="exportCalibBtn">匯出校正設定 (JSON)</button>
-          <button class="btn small" id="importCalibBtn">匯入校正設定 (JSON)</button>
+        <div class="btnrow">
+          <button class="secondary" id="exportCalibBtn">匯出校正設定 (JSON)</button>
+          <button class="secondary" id="importCalibBtn">匯入校正設定</button>
           <input type="file" id="importCalibFile" accept=".json,application/json" style="display:none;">
         </div>
       </div>
     </details>
-
   </div>
 
-  <div class="canvas-wrap">
-    <canvas id="slipCanvas" width="1152" height="1603"></canvas>
-    <div class="footer-note">畫面僅為預覽比例，實際匯出為原始解析度 1152×1603px。列印或送出前請先確認欄位對齊正確。</div>
+  <div class="previewWrap">
+    <div id="formStage">
+      <canvas id="slipCanvas" width="1152" height="1603"></canvas>
+      <div class="footer-note">畫面僅為預覽比例，實際匯出為原始解析度 1152×1603px。列印或送出前請先確認欄位對齊正確。</div>
+    </div>
   </div>
+
 </div>
 
 <script>
@@ -634,9 +615,6 @@ function bindFormEvents(){
     el.addEventListener('change', render);
   });
 
-  document.getElementById('importXlsxBtn').addEventListener('click', ()=>{
-    document.getElementById('importXlsxFile').click();
-  });
   document.getElementById('importXlsxFile').addEventListener('change', handleXlsxImport);
   document.getElementById('xlsxRecordSelect').addEventListener('change', (e)=>{
     applyXlsxRecord(parseInt(e.target.value, 10));
